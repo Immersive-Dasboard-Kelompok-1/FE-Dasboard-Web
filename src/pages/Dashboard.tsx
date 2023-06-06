@@ -8,7 +8,6 @@ const Dashboard = () => {
                 <DashboardBox />
                 <p className='text-2xl font-medium'>Chart Mantee</p>
                 <div className='bg-primary h-80 w-full'>
-
                 </div>
             </Sidebar>
         </div>

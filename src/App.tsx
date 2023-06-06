@@ -1,9 +1,8 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Sidebar from "./componen/Sidebar";
 import LoginPage from "./pages/LoginPage"
 import Dashboard from "./pages/Dashboard";
+import UserList from "./pages/UserList";
 
 function App() {
 
@@ -13,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/user" element={<UserList />} />
         </Routes>
       </BrowserRouter>
 
