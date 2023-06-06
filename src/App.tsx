@@ -1,16 +1,23 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LineChart from "./componen/LineChart"
+import Sidebar from "./componen/Sidebar";
 import LoginPage from "./pages/LoginPage"
+import Dashboard from "./pages/Dashboard";
 
 function App() {
 
   return (
     <>
-      <Sidebar title='Dashboard' name='JohnDoe'/>
-      </>
- 
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
+
+    </>
+
   )
 }
 
