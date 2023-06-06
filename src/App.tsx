@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import LineChart from "./componen/LineChart"
@@ -7,9 +8,9 @@ function App() {
 
   return (
     <>
-
-      <LineChart/>
-    </>
+      <Sidebar title='Dashboard' name='JohnDoe'/>
+      </>
+ 
   )
 }
 
