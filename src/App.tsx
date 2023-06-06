@@ -1,11 +1,13 @@
-import LoginPage from "./pages/LoginPage"
+
+import Sidebar from './componen/Sidebar'
 
 function App() {
 
   return (
     <>
-      <LoginPage/>
-    </>
+
+      <Sidebar title='Dashboard' name='JohnDoe'/>
+  </>
   )
 }
 
