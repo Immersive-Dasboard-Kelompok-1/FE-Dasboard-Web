@@ -1,10 +1,17 @@
 import React from "react";
+import { FC } from "react";
 
-const Sidebar = () => {
+interface SidebarProps {
+  children?: React.ReactNode;
+  title: string;
+  name: string;
+}
+
+const Sidebar: FC<SidebarProps> = ({ children, title, name }) =>{
   return (
-    <section className="min-h-screen flex flex-row bg-gray-100">
-      <div className="flex flex-col w-56 bg-white shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-center h-20 shadow-md">
+    <section className="min-h-screen w-screen flex flex-row">
+      <div className="flex flex-col w-1/6 bg-white shadow-xl  z-10 overflow-hidden">
+        <div className="flex items-center justify-center h-20">
           <h1 className="text-3xl uppercase text-indigo-500">Logo</h1>
         </div>
         <ul className="flex flex-col py-4">
@@ -53,6 +60,26 @@ const Sidebar = () => {
             </a>
           </li>
         </ul>
+
+      </div>
+
+      <div className=" h-screen w-5/6">
+        <div className="flex items-center space-x-4 pl-4 h-16 bg-white shadow-md">
+          <div>
+            <p className="text-black text-2xl">{title}</p>
+          </div>
+          <div className="flex flex-grow justify-end items-center ">
+            <p className="mr-4">Hello, <span className="font-medium">{name}</span></p>
+            <div className="avatar mr-4">
+              <div className="w-10 h-10 rounded-full">
+                <img src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png" alt="Avatar" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="bg-gray-800 m-5">
+        { children }
+        </div>
       </div>
     </section>
   );
