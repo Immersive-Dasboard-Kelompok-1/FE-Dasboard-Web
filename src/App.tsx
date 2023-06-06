@@ -1,13 +1,16 @@
 
-import Sidebar from './componen/Sidebar'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import LineChart from "./componen/LineChart"
+import LoginPage from "./pages/LoginPage"
 
 function App() {
 
   return (
     <>
-
       <Sidebar title='Dashboard' name='JohnDoe'/>
-  </>
+      </>
+ 
   )
 }
 
