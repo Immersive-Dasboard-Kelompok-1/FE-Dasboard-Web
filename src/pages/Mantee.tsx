@@ -4,11 +4,13 @@ import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import { useCookies } from "react-cookie";
 import api, { Mentee } from '../axios/resApi';
 import { AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Mantee = () => {
     const [cookie] = useCookies<string>();
     const [loading, setLoading] = useState(false);
     const [mentee, setMentee] = useState<Mentee | any>([])
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -33,6 +35,9 @@ const Mantee = () => {
 
     console.log(mentee?.data?.mentees.map((item: any) => item.FullName))
 
+    const editHandle =() =>{
+        navigate("/add")
+    }
     return (
         <div>
             <Sidebar title="Mantee List" name={cookie.fullName}>
@@ -51,7 +56,7 @@ const Mantee = () => {
                             />
                             <button className="btn btn-outline text-black right-0 mb-5">Search</button>
                         </div>
-                        <button className={`${cookie.role === "admin" ? "" : "hidden"} btn bg-primary text-white border-none right-0 mb-5`} >Add Mantee</button>
+                        <button onClick={editHandle} className={` btn bg-primary text-white border-none right-0 mb-5`} >Add Mantee</button>
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-end mr-5">
