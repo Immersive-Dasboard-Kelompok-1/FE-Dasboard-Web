@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../componen/Sidebar';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import api, { User, AddUser } from '../axios/resApi';
+import api, { User, DeleteUser } from '../axios/resApi';
 import Swal from 'sweetalert2';
 import { AxiosResponse } from 'axios';
 import { useCookies } from "react-cookie";
-import { number } from 'yup';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Cookies from "js-cookie";
 
 
 const schema = Yup.object({
@@ -20,12 +20,15 @@ const schema = Yup.object({
 });
 
 
+
 const UserList: React.FC = () => {
   const [users, setUser] = useState<User | any>([])
   const [loading, setLoading] = useState(true);
   const [cookie] = useCookies<string>();
   const [cookies, setCookies] = useState<string | undefined>(undefined);
   const [showPopup, setShowPopup] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [editData, setEditData] = useState<User | null>(null);
 
   const formik = useFormik({
     initialValues: {
@@ -75,14 +78,17 @@ const UserList: React.FC = () => {
       status: formik.values.status,
     }
 
+    console.log("ini role", formik.values.role)
+    console.log("ini status", formik.values.status)
+
     try {
       const response = await api.AddUser(
         addUser.token,
         addUser.fullname,
         addUser.email,
         addUser.password,
-        addUser.role,
         addUser.team,
+        addUser.role,
         addUser.status
       );
       console.log(response.data)
@@ -94,6 +100,9 @@ const UserList: React.FC = () => {
         showConfirmButton: false,
         timer: 1500
       })
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
 
     } catch (error) {
       console.error(error);
@@ -105,10 +114,58 @@ const UserList: React.FC = () => {
     }
 
     setShowPopup(!showPopup);
-    
+
   };
 
+  const DeteleUser = async (idUser: any) => {
+    try {
+      const response: AxiosResponse<DeleteUser> = await api.DeleteUser(idUser, cookie.token);
+      console.log(response.data)
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
 
+    } catch (error) {
+      console.log(error)
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: "gagal menghapus data!",
+      });
+    }
+  }
+  const HandleDelete = async (id: any) => {
+    Cookies.set("idUser", id)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        DeteleUser(id)
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+
+
+  }
+
+  const handleEdit = (data: User) => {
+    setEditData(data);
+    console.log(data)
+    setShowPopup(!showPopup);
+    
+    // Lakukan operasi lain yang diperlukan saat tombol edit di klik
+  };
+  console.log(editData)
 
   return (
     <>
@@ -121,6 +178,8 @@ const UserList: React.FC = () => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered input-black w-full max-w-xs bg-white"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
               />
               <button className="btn btn-outline text-black right-0 mb-5">Search</button>
             </div>
@@ -153,12 +212,12 @@ const UserList: React.FC = () => {
                       <td>{item.email}</td>
                       <td>{item.team}</td>
                       <td>{item.role}</td>
-                      <td className={`${item.status === "active" ? "badge badge-secondary" : "badge badge-primary"} mt-4`}>{item.status}</td>
+                      <td className={`${item.status === "active" ? "badge badge-secondary" : "badge badge-primary"} mt-4`}>{item.status === "active" ? "Active" : "Non Aktif"}</td>
                       <td>
-                        <button className="btn btn-ghost text-amber-500">
+                        <button className="btn btn-ghost text-amber-500" onClick={() => handleEdit(item)}>
                           <FaPencilAlt />
                         </button>
-                        <button className="btn btn-ghost text-red">
+                        <button className="btn btn-ghost text-red" onClick={() => HandleDelete(item.id)}>
                           <FaTrashAlt />
                         </button>
                       </td>
@@ -229,7 +288,7 @@ const UserList: React.FC = () => {
                       Team
                     </label>
                     <input
-                      name="team" // Add the name attribute
+                      name="team" 
                       value={formik.values.team}
                       onChange={formik.handleChange}
                       className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline`}
@@ -271,8 +330,8 @@ const UserList: React.FC = () => {
                       <option disabled value="">
                         Status ?
                       </option>
-                      <option>Active</option>
-                      <option>Non Aktive</option>
+                      <option value="active">Active</option>
+                      <option value="non-ative">Non Aktive</option>
                     </select>
                   </div>
 
@@ -282,13 +341,13 @@ const UserList: React.FC = () => {
                       className="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                       type="button"
                     >
-                      Add
+                      Save
                     </button>
                   </div>
                 </form>
 
               </div>
-              {/* Tambahkan konten form lainnya di sini */}
+             
             </div>
           </div>
         </div>

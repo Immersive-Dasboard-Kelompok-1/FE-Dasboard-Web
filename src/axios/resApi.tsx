@@ -22,6 +22,26 @@ export interface LoginResponse {
 
 export interface User {
   data: {
+    FullName: string;
+    NickName: string;
+    ClassID: number;
+    Status: string;
+    Category: string;
+    Gender: string;
+    Graduate: string;
+    Mayor: string;
+    Phone: string;
+    Telegram: string;
+    Discord: string;
+    Institusi: string;
+    Email: string;
+    EmergencyName: string;
+    EmergencyPhone: string;
+    EmergencyStatus: string;
+  }
+}
+export interface Mentee {
+  data: {
     id: number;
     fullName: string;
     email: string;
@@ -44,8 +64,10 @@ export interface AddUser {
 }
 
 export interface DeleteUser{
-  id: number;
+
 }
+
+
 const api = {
   Login: (email: string, password: string): AxiosPromise<LoginResponse> =>
     instance({
@@ -65,6 +87,15 @@ const api = {
         Authorization: `Bearer ${token}`,
       },
     }),
+    
+  GetMentee: (token?: string): AxiosPromise<Mentee[]> =>
+    instance({
+      method: 'GET',
+      url: '/mentees',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 
   AddUser: (
     token: string,
@@ -73,7 +104,7 @@ const api = {
     password: string,
     team: string,
     role: string,
-    status: string): AxiosPromise<AddUser> =>
+    status: string,): AxiosPromise<AddUser> =>
     instance({
       method: 'POST',
       url: '/users',
@@ -88,8 +119,16 @@ const api = {
         role,
         status,
       },
-    })
+    }),
 
+    DeleteUser: (id: string, token?: string): AxiosPromise<DeleteUser> =>
+    instance({
+      method: 'DELETE',
+      url: `/users/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
  
 };
 
