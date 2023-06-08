@@ -21,18 +21,14 @@ export interface LoginResponse {
 }
 
 export interface User {
-  data: {
-    users: {
+    data: {
       id: number;
       fullName: string;
       email: string;
       team: string;
       role: string;
       status: string;
-    },
-    message: string;
-    status: string;
-  }
+    }
 }
 
 const api = {

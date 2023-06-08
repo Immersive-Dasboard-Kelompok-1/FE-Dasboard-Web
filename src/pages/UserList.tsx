@@ -5,10 +5,11 @@ import api, { User } from '../axios/resApi';
 import Swal from 'sweetalert2';
 import { AxiosResponse } from 'axios';
 import { useCookies } from "react-cookie";
+import { number } from 'yup';
 
 
 const UserList: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUser] = useState<User | any>([])
   const [loading, setLoading] = useState(true);
   const [cookie] = useCookies<string>();
   const [cookies, setCookies] = useState<string | undefined>(undefined);
@@ -20,10 +21,10 @@ const UserList: React.FC = () => {
 
     const fetchUsers = async () => {
       try {
-        const response: AxiosResponse<User[]> = await api.GetUser(cookies || "");
+        const response: AxiosResponse<User[]> = await api.GetUser(cookie.token);
         const userData = response.data;
-        console.log(response.data)
-        setUsers(userData);
+        // console.log(response.data)
+        setUser(userData);
         setLoading(false);
 
       } catch (error) {
@@ -39,15 +40,19 @@ const UserList: React.FC = () => {
 
   })
 
-  console.log("Users state:", users); 
+  console.log("Users state:", users);
+  // console.log(users?.data?.map((user: any) =>(user?.fullName)))
+  // const userName = [users.data]
+  // const itemUser = userName?.map((user: any) => (user.users))
+  console.log(users?.data?.users.map((item: any) => (item.fullname)))
+
+
 
   return (
     <>
       <Sidebar title="User List" name={cookie.fullName}>
         <div className="p-3">
-        {users?.map((user) => (
-            <h1 key={user.data.users.id}>{user.data.users.fullName}</h1>
-          ))}
+
           <div className="flex justify-end">
             <div className="flex justify-end mr-5">
               <input
@@ -79,9 +84,26 @@ const UserList: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-
-
+                  {users?.data?.users.map((item: any, index: number) => (
+                    <tr key={item.id}>
+                      <td>{index + 1}</td>
+                      <td>{item.fullname}</td>
+                      <td>{item.email}</td>
+                      <td>{item.team}</td>
+                      <td>{item.role}</td>
+                      <td className={`${item.status === "active" ? "badge badge-secondary": "badge badge-primary"} mt-4`}>{item.status}</td>
+                      <td>
+                        <button className="btn btn-ghost text-amber-500">
+                          <FaPencilAlt />
+                        </button>
+                        <button className="btn btn-ghost text-red">
+                          <FaTrashAlt />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
+
               </table>
             </div>
           )}
