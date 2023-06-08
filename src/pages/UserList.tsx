@@ -66,6 +66,7 @@ const UserList: React.FC = () => {
 
   const handleSubmit = async () => {
     const addUser = {
+      token: cookie.token,
       fullname: formik.values.fullname,
       email: formik.values.email,
       password: formik.values.password,
@@ -75,8 +76,8 @@ const UserList: React.FC = () => {
     }
 
     try {
-      const respon = await api.AddUser(
-        cookie.token,
+      const response = await api.AddUser(
+        addUser.token,
         addUser.fullname,
         addUser.email,
         addUser.password,
@@ -84,15 +85,8 @@ const UserList: React.FC = () => {
         addUser.team,
         addUser.status
       );
+      console.log(response.data)
 
-      console.log(respon.data)
-      console.log(addUser.fullname,
-        addUser.email,
-        addUser.password,
-        addUser.role,
-        addUser.team,
-        addUser.status)
-        
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -136,9 +130,9 @@ const UserList: React.FC = () => {
           {loading ? (
             <h1 className='text-black'>Loading...</h1>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto z-0">
 
-              <table className="table">
+              <table className="table z-0">
 
                 <thead className="bg-gray-200 text-black">
                   <tr>
