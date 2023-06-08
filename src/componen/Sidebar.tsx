@@ -65,7 +65,7 @@ const Sidebar: FC<SidebarProps> = ({ children, title, name }) =>{
 
       </div>
 
-      <div className=" h-screen w-5/6">
+      <div className=" h-screen w-5/6 z-10">
         <div className="sticky top-0 flex items-center space-x-4 pl-4 h-16 bg-white shadow-md">
           <div>
             <p className="text-black text-2xl">{title}</p>

@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Cookies from "js-cookie";
 
 const schema = Yup.object({
   username: Yup.string().required("Username required"),
@@ -15,6 +16,7 @@ const schema = Yup.object({
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [token, setToken] = useState<string>("");
 
   const formik = useFormik({
     initialValues: {
@@ -27,6 +29,7 @@ const LoginPage: React.FC = () => {
     },
   });
 
+
   const LoginHandle = async () => {
     const user = {
       username: formik.values.username,
@@ -36,7 +39,12 @@ const LoginPage: React.FC = () => {
     if (user.username !== "" && user.password !== "") {
       try {
         const response = await api.Login(user.username, user.password);
-        console.log(response);
+        console.log(response.data)
+        
+        Cookies.set("token", response.data?.data?.accessToken , { path: "/" });
+        Cookies.set("fullName", response.data?.data?.user?.FullName , { path: "/" });
+        Cookies.set("role", response.data?.data?.user?.Role , { path: "/" });
+
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -44,6 +52,7 @@ const LoginPage: React.FC = () => {
           showConfirmButton: false,
           timer: 1500
         })
+
         navigate("/dashboard")
       } catch (error) {
         console.error(error);
@@ -53,6 +62,7 @@ const LoginPage: React.FC = () => {
           text: "Pastikan Username & Password Benar !",
         });
       }
+
     } else {
       Swal.fire({
         icon: "error",
@@ -83,9 +93,8 @@ const LoginPage: React.FC = () => {
             <input
               value={formik.values.username}
               onChange={formik.handleChange}
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline ${
-                formik.values.username === "" ? "bg-red-500" : ""
-              }`}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline ${formik.values.username === "" ? "bg-red-500" : ""
+                }`}
               id="username"
               type="text"
               placeholder="Username"
@@ -98,9 +107,8 @@ const LoginPage: React.FC = () => {
             <input
               value={formik.values.password}
               onChange={formik.handleChange}
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline ${
-                formik.values.password === "" ? "bg-red-500" : ""
-              }`}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline ${formik.values.password === "" ? "bg-red-500" : ""
+                }`}
               id="password"
               type={showPassword ? "text" : "password"}
               placeholder="********"

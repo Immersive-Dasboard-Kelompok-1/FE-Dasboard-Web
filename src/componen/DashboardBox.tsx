@@ -1,11 +1,11 @@
 import React from 'react'
-import { BiGroup , BiMapAlt, BiMedal} from "react-icons/bi";
+import { BiGroup, BiMapAlt, BiMedal } from "react-icons/bi";
 
 const DashboardBox = () => {
     return (
         <div>
             <div className='h-100 w-full flex items-center flex-grow'>
-                <div className='h-40 w-96 bg-blue1 m-5 rounded-md p-4'>
+                <div className='h-40 w-96 bg-blue1 m-5 rounded-md p-4 shadow-md'>
                     <div className='flex flex-grow'>
                         <div className='items-center'>
                             <p className='text-2xl mb-3 font-medium'>Mantee</p>
@@ -20,7 +20,7 @@ const DashboardBox = () => {
                     </div>
 
                 </div>
-                <div className='h-40 w-96 bg-blue2 m-5 rounded-md p-4'>
+                <div className='h-40 w-96 bg-blue2 m-5 rounded-md p-4 shadow-md'>
                     <div className='flex flex-grow'>
                         <div className='items-center'>
                             <p className='text-2xl mb-3 font-medium'>Mantee Placement</p>
@@ -34,7 +34,7 @@ const DashboardBox = () => {
                         </div>
                     </div>
                 </div>
-                <div className='h-40 w-96 bg-blue3 m-5 rounded-md p-4'>
+                <div className='h-40 w-96 bg-blue3 m-5 rounded-md p-4 shadow-md'>
                     <div className='flex flex-grow'>
                         <div className='items-center'>
                             <p className='text-2xl mb-3 font-medium'>Mantee Feedback</p>
