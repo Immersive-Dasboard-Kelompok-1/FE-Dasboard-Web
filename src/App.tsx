@@ -4,8 +4,7 @@ import LoginPage from "./pages/LoginPage"
 import Dashboard from "./pages/Dashboard";
 import UserList from "./pages/UserList";
 import { CookiesProvider } from "react-cookie";
-import AddNewMantee from "./pages/AddNewMantee";
-import AddUser from "./componen/AddUser";
+import Mantee from "./pages/Mantee";
 
 function App() {
 
@@ -17,8 +16,7 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/user" element={<UserList />} />
-          {/* <Route path="/add" element={<AddUser/>}/> */}
-          <Route path="/add" element={<AddNewMantee/>}/>
+          <Route path="/mantee" element={<Mantee/>}/>
         </Routes>
       </BrowserRouter>
     </CookiesProvider>

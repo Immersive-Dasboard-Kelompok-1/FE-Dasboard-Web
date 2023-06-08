@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { BiGroup, BiMapAlt, BiMedal } from "react-icons/bi";
 
 const DashboardBox = () => {

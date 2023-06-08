@@ -16,7 +16,6 @@ const schema = Yup.object({
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [token, setToken] = useState<string>("");
 
   const formik = useFormik({
     initialValues: {

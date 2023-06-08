@@ -62,6 +62,10 @@ const Sidebar: FC<SidebarProps> = ({ children, title, name }) =>{
             </Link>
           </li>
         </ul>
+        {/* <div className="w-full flex justify-center">
+
+        <button className="w-1/2 bg-red">Logout</button>
+        </div> */}
 
       </div>
 

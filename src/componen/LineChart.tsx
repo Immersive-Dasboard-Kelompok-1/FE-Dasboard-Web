@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Chart, ChartConfiguration, LineController, LinearScale, CategoryScale, PointElement } from 'chart.js';
+import { Chart, LineController, LinearScale, CategoryScale, PointElement } from 'chart.js';
 
 const LineChart: React.FC = () => {
   const chartRef = useRef<HTMLCanvasElement>(null);
