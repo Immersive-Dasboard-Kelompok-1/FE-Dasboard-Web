@@ -21,16 +21,27 @@ export interface LoginResponse {
 }
 
 export interface User {
-    data: {
-      id: number;
-      fullName: string;
-      email: string;
-      team: string;
-      role: string;
-      status: string;
-    }
+  data: {
+    id: number;
+    fullName: string;
+    email: string;
+    team: string;
+    role: string;
+    status: string;
+  }
 }
 
+
+export interface AddUser {
+
+  fullname: string;
+  email: string;
+  password: string;
+  team: string;
+  role: string;
+  status: string;
+
+}
 const api = {
   Login: (email: string, password: string): AxiosPromise<LoginResponse> =>
     instance({
@@ -50,6 +61,30 @@ const api = {
         Authorization: `Bearer ${token}`,
       },
     }),
+
+    AddUser: (
+      token: string, 
+      fullname: string, 
+      email: string, 
+      password: string, 
+      team: string, 
+      role: string, 
+      status: string): AxiosPromise<AddUser> =>
+    instance({
+      method: 'POST',
+      url: '/users',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        fullname,
+        email,
+        password,
+        team,
+        role,
+        status,
+      },
+    })
 };
 
 export default api;
