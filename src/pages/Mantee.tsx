@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import Sidebar from '../componen/Sidebar';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
-import Cookies from "js-cookie";
 import { useCookies } from "react-cookie";
 import api, { Mentee } from '../axios/resApi';
 import { AxiosResponse } from 'axios';
