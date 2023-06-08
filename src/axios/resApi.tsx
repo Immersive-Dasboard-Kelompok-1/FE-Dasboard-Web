@@ -1,7 +1,7 @@
-import axios, { AxiosPromise } from 'axios';
+import axios, { AxiosPromise } from "axios";
 
 const instance = axios.create({
-  baseURL: 'http://43.218.95.93',
+  baseURL: "http://43.218.95.93",
 });
 
 export interface LoginResponse {
@@ -17,7 +17,7 @@ export interface LoginResponse {
     };
     message: string;
     status: string;
-  }
+  };
 }
 
 export interface User {
@@ -28,29 +28,36 @@ export interface User {
     team: string;
     role: string;
     status: string;
-  }
+  };
 }
 
-
 export interface AddUser {
-
   fullname: string;
   email: string;
   password: string;
   team: string;
   role: string;
   status: string;
-
 }
 
-export interface DeleteUser{
+export interface DeleteUser {
   id: number;
 }
+
+export interface Class {
+  data: {
+    id: number;
+    name: string;
+    initialClass: string;
+    userId: number;
+  };
+}
+
 const api = {
   Login: (email: string, password: string): AxiosPromise<LoginResponse> =>
     instance({
-      method: 'POST',
-      url: '/login',
+      method: "POST",
+      url: "/login",
       data: {
         email,
         password,
@@ -59,8 +66,8 @@ const api = {
 
   GetUser: (token?: string): AxiosPromise<User[]> =>
     instance({
-      method: 'GET',
-      url: '/users',
+      method: "GET",
+      url: "/users",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -73,10 +80,11 @@ const api = {
     password: string,
     team: string,
     role: string,
-    status: string): AxiosPromise<AddUser> =>
+    status: string
+  ): AxiosPromise<AddUser> =>
     instance({
-      method: 'POST',
-      url: '/users',
+      method: "POST",
+      url: "/users",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -88,9 +96,16 @@ const api = {
         role,
         status,
       },
-    })
+    }),
 
- 
+  GetClass: (token?: string): AxiosPromise<Class[]> =>
+    instance({
+      method: "GET",
+      url: "/classes",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };
 
 export default api;
