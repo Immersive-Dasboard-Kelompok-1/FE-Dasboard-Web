@@ -66,6 +66,9 @@ export interface AddUser {
 export interface DeleteUser{
 
 }
+export interface DeleteMantee{
+
+}
 
 
 const api = {
@@ -125,6 +128,15 @@ const api = {
     instance({
       method: 'DELETE',
       url: `/users/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+ 
+    DeleteMentee: (id: string, token?: string): AxiosPromise<DeleteMantee> =>
+    instance({
+      method: 'DELETE',
+      url: `/mentees/${id}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,7 +1,13 @@
+import Sidebar from "./Sidebar"
+import { useCookies } from "react-cookie";
 
 const AddUser = () => {
+    const [cookie] = useCookies<string>();
     return (
         <>
+        <Sidebar title="add mentee" name={cookie.fullName}>
+
+        
             <div className='flex justify-start items-center w-screen h-fit  overflow-x-hidden'>
                 <div className=' h-fit mt-5 mb-5'>
                     <div className='mb-5'>
@@ -189,6 +195,7 @@ const AddUser = () => {
 
 
             </div>
+            </Sidebar>
         </>
     )
 }
