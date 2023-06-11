@@ -6,6 +6,7 @@ import UserList from "./pages/UserList";
 import { CookiesProvider } from "react-cookie";
 import Mantee from "./pages/Mantee";
 import AddUser from "./componen/AddUser";
+import Classlist from "./pages/Classlist";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/user" element={<UserList />} />
           <Route path="/mantee" element={<Mantee/>}/>
           <Route path="/add" element={<AddUser/>}/>
+          <Route path="/class" element={<Classlist/>}/>
         </Routes>
       </BrowserRouter>
     </CookiesProvider>

@@ -63,11 +63,19 @@ export interface AddUser {
 
 }
 
-export interface DeleteUser{
+export interface DeleteUser {
 
 }
-export interface DeleteMantee{
+export interface DeleteMantee {
 
+}
+
+export interface Class {
+  data: {
+    Id: number;
+    Name: string;
+    userId: number;
+  };
 }
 
 
@@ -90,7 +98,16 @@ const api = {
         Authorization: `Bearer ${token}`,
       },
     }),
-    
+
+  GetClass: (token?: string): AxiosPromise<Class[]> =>
+    instance({
+      method: "GET",
+      url: "/classes",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+
   GetMentee: (token?: string): AxiosPromise<Mentee[]> =>
     instance({
       method: 'GET',
@@ -124,7 +141,7 @@ const api = {
       },
     }),
 
-    DeleteUser: (id: string, token?: string): AxiosPromise<DeleteUser> =>
+  DeleteUser: (id: string, token?: string): AxiosPromise<DeleteUser> =>
     instance({
       method: 'DELETE',
       url: `/users/${id}`,
@@ -132,8 +149,8 @@ const api = {
         Authorization: `Bearer ${token}`,
       },
     }),
- 
-    DeleteMentee: (id: string, token?: string): AxiosPromise<DeleteMantee> =>
+
+  DeleteMentee: (id: string, token?: string): AxiosPromise<DeleteMantee> =>
     instance({
       method: 'DELETE',
       url: `/mentees/${id}`,
@@ -141,7 +158,9 @@ const api = {
         Authorization: `Bearer ${token}`,
       },
     }),
- 
+
+
+
 };
 
 export default api;
